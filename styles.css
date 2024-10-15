@@ -5,6 +5,10 @@ form {
   gap: 1rem;
 }
 
+#curs-valutar {
+  font-size: 20px;
+}
+
 .info {
   background-color: gray;
   border: 0.5px solid black;
@@ -34,3 +38,21 @@ form {
   font-size: 24px;
   cursor: pointer;
 }
+
+.readonly_input {
+  cursor: default;
+}
+
+
+/* Chrome, Safari, Edge, Opera */
+.form_calculator_taxe input::-webkit-outer-spin-button,
+.form_calculator_taxe input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.form_calculator_taxe input[type=number] {
+  -moz-appearance: textfield;
+}
+

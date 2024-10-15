@@ -1,4 +1,4 @@
-form {
+.form_calculator_taxe {
   display: flex;
   flex-direction: column;
   align-items: flex-start;

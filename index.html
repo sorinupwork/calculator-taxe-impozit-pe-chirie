@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculator Taxe</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>calculator taxe impozit chirie</h1>
+
+  <h2 id='curs-valutar'></h2>
+
+  <form action="">
+    <div class='chirieLunaraEuroContainer'>
+      <label for="chirieLunaraEuro">Chirie Lunara Euro</label>
+      <input type="number" id='chirieLunaraEuro'>
+    </div>
+
+    <div class='chirieLunaraLeiContainer'>
+      <label for="chirieLunaraLei">Chirie Lunara Lei</label>
+      <input type="number" id='chirieLunaraLei'>
+    </div>
+
+    <div class='venitLunarAlteSurseContainer'>
+      <span class='info'>i</span>
+
+      <div class="mini-modal" id="mini-modal">
+        <span class="close">&times;</span>
+        <p>Adaugati venitul lunar care provine din alte activitati independente. ATENTIE! Venitul din salarii nu se adauga.</p>
+      </div>
+
+      <label for="venitLunarAlteSurse">Venit Lunar NET alte surse</label>
+      <input type="number" id='venitLunarAlteSurse'>
+    </div>
+
+    <div class='venitTotalAnualContainer'>
+      <label for="venitTotalAnual">Venit TOTAL Anual Lei</label>
+      <input type="number" id='venitTotalAnual'>
+    </div>
+
+    <div class='venitTotalAnualCuAlteSurseContainer'>
+      <label for="venitTotalAnualCuAlteSurse">Venit TOTAL Anual Lei (plus alte surse)</label>
+      <input type="number" id='venitTotalAnualCuAlteSurse'>
+    </div>
+  </form>
+
+  <h2>Impozit de platit</h2>
+
+  <form action="">
+    <div class='impozitPlataLunaraContainer'>
+      <label for="impozitPlataLunara">Impozit TOTAL Lunar Lei</label>
+      <input type="number" id='impozitPlataLunara'>
+    </div>
+
+    <div class='impozitPlataAnualaContainer'>
+      <label for="impozitPlataAnuala">Impozit TOTAL Anual Lei</label>
+      <input type="number" id='impozitPlataAnuala'>
+    </div>
+
+    <div class='impozitCASSLunarContainer'>
+      <label for="impozitCASSLunar">Impozit CASS TOTAL Lunar Lei</label>
+      <input type="number" id='impozitCASSLunar'>
+    </div>
+
+    <div class='impozitCASSAnualContainer'>
+      <label for="impozitCASSAnual">Impozit CASS TOTAL Anual Lei</label>
+      <input type="number" id='impozitCASSAnual'>
+    </div>
+
+  </form>
+  
+
+  <script src="./conversie.js"></script>
+</body>
+</html>

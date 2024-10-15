@@ -1,6 +1,6 @@
 let euro = 4.973;
 document.getElementById('curs-valutar').innerHTML =
-	'The value of 1 euro is: ' + euro + ' lei';
+	`Curs BNR azi: 1 € = ${euro} Lei`;
 
 // input elements
 const inputElements = {

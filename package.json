@@ -1,10 +1,9 @@
 {
   "name": "calc-taxe",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "index.mjs",
   "scripts": {
-    "start" : "nodemon start",
-    "test gdfsghibhjsfd" : "thsfvfd"
+    "start" : "nodemon index.mjs"
   },
   "keywords": [],
   "author": "",

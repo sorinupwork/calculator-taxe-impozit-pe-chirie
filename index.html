@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calculator Taxe</title>
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
   <h1>calculator taxe impozit chirie</h1>
 
@@ -13,6 +15,15 @@
   <h2 id='salariu-minim'></h2>
 
   <form class="form_calculator_taxe" action="">
+    <div class='pfPjContainer'>
+      <label for="persoana">Selectează tipul de persoană:</label>
+      <select id="persoana" name="persoana">
+        <option value="PF">Persoană Fizică (PF)</option>
+        <option value="PJ">Persoană Juridică (PJ)</option>
+      </select>
+    </div>
+
+
     <div class='chirieLunaraEuroContainer'>
       <label for="chirieLunaraEuro">Chirie Lunara Euro</label>
       <input type="number" id='chirieLunaraEuro'>
@@ -28,7 +39,8 @@
 
       <div class="mini-modal" id="mini-modal">
         <span class="close">&times;</span>
-        <p>Adaugati venitul lunar care provine din alte activitati independente. ATENTIE! Venitul din salarii nu se adauga.</p>
+        <p>Adaugati venitul lunar care provine din alte activitati independente. ATENTIE! Venitul din salarii nu se
+          adauga.</p>
       </div>
 
       <label for="venitLunarAlteSurse">Venit Lunar NET alte surse</label>
@@ -70,8 +82,9 @@
     </div>
 
   </form>
-  
+
 
   <script src="./main.mjs" type='module'></script>
 </body>
+
 </html>

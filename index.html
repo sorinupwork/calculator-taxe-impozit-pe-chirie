@@ -17,110 +17,201 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+
 </head>
 
 <body>
   <h1>calculator taxe impozit chirie</h1>
 
-  <h2 id='curs-valutar'></h2>
-  <h2 id='salariu-minim'></h2>
-
-  <form class="form_calculator_taxe" action="">
-    <div class='pfPjContainer'>
-      <label for="persoana">Selectează tipul de persoană:</label>
-      <select id="persoana" name="persoana">
-        <option value="PF">Persoană Fizică (PF)</option>
-        <option value="PJ">Persoană Juridică (PJ)</option>
-      </select>
-    </div>
-
-
-    <div class='chirieLunaraEuroContainer'>
-      <label for="chirieLunaraEuro">Chirie Lunara Euro</label>
-      <input type="number" id='chirieLunaraEuro'>
-    </div>
-
-    <div class='chirieLunaraLeiContainer'>
-      <label for="chirieLunaraLei">Chirie Lunara Lei</label>
-      <input class="readonly_input" type="number" id='chirieLunaraLei' readonly>
-    </div>
-
-    <div class='venitLunarAlteSurseContainer'>
-      <span class='info'>i</span>
-
-      <div class="mini-modal" id="mini-modal">
-        <span class="close">&times;</span>
-        <p>Adaugati venitul lunar care provine din alte activitati independente. ATENTIE! Venitul din salarii nu se
-          adauga.</p>
+  <div class="calculator_taxe_chirie container border-top border-dark pt-3">
+    <!-- Header - Introducerea valorilor -->
+    <div class="header_ctc row mb-3">
+      <div class="col-12 col_selectPfPj">
+        <div class='pfPjContainer'>
+          <label for="persoana" class="m-0">Selectează tipul de persoană:</label>
+          <select id="persoana" name="persoana">
+            <option value="PF">Persoană Fizică (PF)</option>
+            <option value="PJ">Persoană Juridică (PJ)</option>
+          </select>
+        </div>
+        <button id="add_income_source">Adauga si alte surse de venit</button>
       </div>
-
-      <label for="venitLunarAlteSurseLei">Venit Lunar NET alte surse LEI</label>
-      <input type="number" id='venitLunarAlteSurseLei'>
-      <label for="venitLunarAlteSurseEuro">Venit Lunar NET alte surse Euro</label>
-      <input type="number" id='venitLunarAlteSurseEuro'>
+      <div class="header_item col-md-3 mb-2">
+        <label for="chirieLunaraEuro" class="form-label">Chiria lunară (€)</label>
+        <input type="text" class="form-control" id="chirieLunaraEuro">
+      </div>
+      <div class="header_item col-md-3 mb-2">
+        <label for="salariu_minim_brut" class="form-label">Salariul minim brut (RON)</label>
+        <input type="text" class="form-control" id="salariu_minim_brut" readonly>
+      </div>
+      <div class="header_item col-md-3 mb-2">
+        <label for="curs_bnr" class="form-label">Curs Euro-RON (BNR)</label>
+        <input type="text" class="form-control" id="curs_bnr" readonly>
+      </div>
+      <div class="header_item col-md-3 mb-2">
+        <label for="chirieLunaraLei" class="form-label">Chiria lunară (RON)</label>
+        <input type="text" class="form-control" id="chirieLunaraLei" readonly>
+      </div>
     </div>
 
-    <div class='venitTotalAnualContainerLei'>
-      <label for="venitTotalAnualLei">Venit TOTAL Anual Lei</label>
-      <input type="number" id='venitTotalAnualLei'>
+    <div class="row mb-4">
+      <div class="col-12 d-flex justify-content-center">
+        
+      </div>
+      <div class="col-12 col_add_more_incoume_sources toggle_view">
+        <div class="row">
+          <div class="body_item col-12 my-3">
+            <div class="card">
+              <div class="card-body text-center p-0">
+                  <div class="p-3">
+                    <h6 class="title_text_value d-flex flex-column">Venit Lunar NET alte surse <span style="font-weight: 300;">Adaugati venitul lunar care provine din alte activitati independente. ATENTIE! Venitul din salarii nu se adauga.</span></h6>
+                    <div class="euro_value">
+                      <label for="venitLunarAlteSurseEuro" class="sr-only">Venit Lunar NET alte surse EUR</label>
+                      <input type="text" class="form-control mb-1" id="venitLunarAlteSurseEuro" placeholder="Venit alte surse (EUR)">
+                    </div>
+                    <div class="ron_value">
+                      <label for="venitLunarAlteSurseLei" class="sr-only">Venit Lunar NET alte surse RON</label>
+                      <input type="text" class="form-control" id="venitLunarAlteSurseLei" placeholder="Venit alte surse (RON)">
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class='venitTotalAnualContainerEuro'>
-      <label for="venitTotalAnualEuro">Venit TOTAL Anual Euro</label>
-      <input type="number" id='venitTotalAnualEuro'>
+  
+    <!-- Body - Calcularea veniturilor și impozitelor -->
+    <div class="body_ctc row">
+      <div class="body_item col-md-6 mb-3">
+        <div class="card">
+          <div class="card-body text-center">
+            <h6 class="title_text_value">Venit brut din chirii incasat pe un an</span></h6>
+            <div class="euro_value">
+              <label for="venitTotalAnualEuro" class="sr-only">Venit Total Anual Euro</label>
+              <input type="text" class="form-control mb-1" id="venitTotalAnualEuro" readonly>
+            </div>
+            <div class="ron_value">
+              <label for="venitTotalAnualLei" class="sr-only">Venit Total Anual Lei</label>
+              <input type="text" class="form-control" id="venitTotalAnualLei" readonly>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="body_item col-md-6 mb-3">
+        <div class="card">
+          <div class="card-body text-center">
+            <h6 class="title_text_value">Venit TOTAL anual + alte surse de venit</h6>
+            <div class="euro_value">
+              <label for="venitTotalAnualCuAlteSurseEuro" class="sr-only">Impozit Plata Anuală Euro</label>
+              <input type="text" class="form-control mb-1" id="venitTotalAnualCuAlteSurseEuro" readonly>
+            </div>
+            <div class="ron_value">
+              <label for="venitTotalAnualCuAlteSurseLei" class="sr-only">Impozit Plata Anuală Lei</label>
+              <input type="text" class="form-control" id="venitTotalAnualCuAlteSurseLei" readonly>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="body_item col-md-6 mb-3">
+        <div class="card">
+          <div class="card-body text-center">
+            <h6 class="title_text_value">Impozitul pe venitul din chirii datorat anual</h6>
+            <div class="euro_value">
+              <label for="impozitPlataAnualaEuro" class="sr-only">Impozit Plata Anuală Euro</label>
+              <input type="text" class="form-control mb-1" id="impozitPlataAnualaEuro" readonly>
+            </div>
+            <div class="ron_value">
+              <label for="impozitPlataAnualaLei" class="sr-only">Impozit Plata Anuală Lei</label>
+              <input type="text" class="form-control" id="impozitPlataAnualaLei" readonly>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="body_item col-md-6 mb-3">
+        <div class="card">
+          <div class="card-body text-center">
+            <h6 class="title_text_value">Impozitul pe venitul din chirii datorat lunar</h6>
+            <div class="euro_value">
+              <label for="impozitPlataLunaraEuro" class="sr-only">Impozit Plata Lunară Euro</label>
+              <input type="text" class="form-control mb-1" id="impozitPlataLunaraEuro" readonly>
+            </div>
+            <div class="ron_value">
+              <label for="impozitPlataLunaraLei" class="sr-only">Impozit Plata Lunară Lei</label>
+              <input type="text" class="form-control" id="impozitPlataLunaraLei" readonly>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="body_item col-md-6 mb-3">
+        <div class="card">
+          <div class="card-body text-center">
+            <h6 class="title_text_value">Contribuțiile CASS (plata anuală)</h6>
+            <div class="euro_value">
+              <label for="impozitCASSAnualEuro" class="sr-only">Impozit CASS Anual Euro</label>
+              <input type="text" class="form-control mb-1" id="impozitCASSAnualEuro" readonly>
+            </div>
+            <div class="ron_value">
+              <label for="impozitCASSAnualLei" class="sr-only">Impozit CASS Anual Lei</label>
+              <input type="text" class="form-control" id="impozitCASSAnualLei" readonly>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="body_item col-md-6 mb-3">
+        <div class="card">
+          <div class="card-body text-center">
+            <h6 class="title_text_value">Contribuțiile CASS (plata lunară)</h6>
+            <div class="euro_value">
+              <label for="impozitCASSLunarEuro" class="sr-only">Impozit CASS Lunar Euro</label>
+              <input type="text" class="form-control mb-1" id="impozitCASSLunarEuro" readonly>
+            </div>
+            <div class="ron_value">
+              <label for="impozitCASSLunarLei" class="sr-only">Impozit CASS Lunar Lei</label>
+              <input type="text" class="form-control" id="impozitCASSLunarLei" readonly>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+  
 
-    <div class='venitTotalAnualCuAlteSurseContainerLei'>
-      <label for="venitTotalAnualCuAlteSurseLei">Venit TOTAL Anual Lei (plus alte surse)</label>
-      <input type="number" id='venitTotalAnualCuAlteSurseLei'>
-    </div>
-    <div class='venitTotalAnualCuAlteSurseContainerEuro'>
-      <label for="venitTotalAnualCuAlteSurseEuro">Venit TOTAL Anual Euro (plus alte surse)</label>
-      <input type="number" id='venitTotalAnualCuAlteSurseEuro'>
-    </div>
-  </form>
+<style>
+  .toggle_view {
+    display: none;
+  }
+  .euro_value input {
+    font-size: 24px;
+    text-align: center;
+    color: #ff8100;
+}
 
-  <h2>Impozit de platit</h2>
-
-  <form class="form_calculator_taxe" action="">
-    <div class='impozitPlataLunaraContainerLei'>
-      <label for="impozitPlataLunaraLei">Impozit TOTAL Lunar Lei</label>
-      <input class="readonly_input" type="number" id='impozitPlataLunaraLei' readonly>
-    </div>
-    <div class='impozitPlataLunaraContainerEuro'>
-      <label for="impozitPlataLunaraEuro">Impozit TOTAL Lunar Euro</label>
-      <input class="readonly_input" type="number" id='impozitPlataLunaraEuro' readonly>
-    </div>
-
-    <div class='impozitPlataAnualaContainerLei'>
-      <label for="impozitPlataAnualaLei">Impozit TOTAL Anual Lei</label>
-      <input class="readonly_input" type="number" id='impozitPlataAnualaLei' readonly>
-    </div>
-    <div class='impozitPlataAnualaContainerEuro'>
-      <label for="impozitPlataAnualaEuro">Impozit TOTAL Anual Euro</label>
-      <input class="readonly_input" type="number" id='impozitPlataAnualaEuro' readonly>
-    </div>
-
-    <div class='impozitCASSLunarContainerLei'>
-      <label for="impozitCASSLunarLei">Impozit CASS TOTAL Lunar Lei</label>
-      <input class="readonly_input" type="number" id='impozitCASSLunarLei' readonly>
-    </div>
-    <div class='impozitCASSLunarContainerEuro'>
-      <label for="impozitCASSLunarEuro">Impozit CASS TOTAL Lunar Euro</label>
-      <input class="readonly_input" type="number" id='impozitCASSLunarEuro' readonly>
-    </div>
-
-    <div class='impozitCASSAnualContainerLei'>
-      <label for="impozitCASSAnualLei">Impozit CASS TOTAL Anual Lei</label>
-      <input class="readonly_input" type="number" id='impozitCASSAnualLei' readonly>
-    </div>
-    <div class='impozitCASSAnualContainerEuro'>
-      <label for="impozitCASSAnualEuro">Impozit CASS TOTAL Anual Euro</label>
-      <input class="readonly_input" type="number" id='impozitCASSAnualEuro' readonly>
-    </div>
-
-  </form>
-
-
+.ron_value input {
+    text-align: center;
+    font-size: 20px;
+}
+button#add_income_source {
+    border: unset;
+    background: #fff;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.col_selectPfPj {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    background: #303030;
+    color: #fff;
+    padding: 15px;
+    border-radius: 9px;
+}
+</style>
   <script src="./main.mjs" type='module'></script>
 </body>
 

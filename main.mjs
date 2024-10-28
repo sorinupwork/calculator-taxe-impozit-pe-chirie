@@ -8,11 +8,14 @@ import { setupModal } from './modal.mjs';
 
 // dynamic text elements
 document.getElementById(
-	'curs-valutar'
-).innerHTML = `Curs BNR azi: 1 € = ${euro} Lei`;
+	'curs_bnr'
+).value = euro;
 document.getElementById(
-	'salariu-minim'
-).innerHTML = `Salariul minim pe economie brut in 2024: ${salariuMinimBrut} Lei`;
+	'salariu_minim_brut'
+).value = salariuMinimBrut;
+// document.getElementById(
+// 	'salariu-minim'
+// ).innerHTML = `Salariul minim pe economie brut in 2024: ${salariuMinimBrut} Lei`;
 
 // input elements
 export const inputElements = {
@@ -49,7 +52,7 @@ inputElements.chirieLunaraEuro.addEventListener('input', () => {
 		inputElements.chirieLunaraEuro.value
 	);
 	const chirieLunaraLeiValue = chirieLunaraEuroValue * euro;
-	inputElements.chirieLunaraLei.value = chirieLunaraLeiValue.toFixed(2);
+	inputElements.chirieLunaraLei.value = parseFloat(chirieLunaraLeiValue.toFixed(2)) || 0;
 
 	calculateVenitTotalAnual();
 	calculateImpozit();
@@ -72,6 +75,11 @@ inputElements.persoana.addEventListener('change', () => {
 	calculateImpozit();
 	calculateCASS();
 });
+
+$(document).on('click', '#add_income_source', function() {
+	$('.toggle_view').slideToggle()
+	$('#venitLunarAlteSurseEuro').focus()
+})
 
 // info modal
 setupModal();

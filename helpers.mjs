@@ -21,21 +21,21 @@ export function calculateVenitTotalAnual() {
 		venitTotalAnualLei + venitLunarAlteSurseTotalLei * 12;
 	const venitTotalCuAlteSurseEuro = venitTotalCuAlteSurseLei / euro;
 
-	inputElements.venitTotalAnualLei.value = venitTotalAnualLei.toFixed(2);
+	inputElements.venitTotalAnualLei.value = priceFormatRON(venitTotalAnualLei);
 	inputElements.venitTotalAnualCuAlteSurseLei.value =
-		venitTotalCuAlteSurseLei.toFixed(2);
-	inputElements.venitTotalAnualEuro.value = venitTotalAnualEuro.toFixed(2);
+		priceFormatRON(venitTotalCuAlteSurseLei);
+	inputElements.venitTotalAnualEuro.value = priceFormatEUR(venitTotalAnualEuro);
 	inputElements.venitTotalAnualCuAlteSurseEuro.value =
-		venitTotalCuAlteSurseEuro.toFixed(2);
+		priceFormatEUR(venitTotalCuAlteSurseEuro);
 }
 
 export function calculateImpozit() {
 	let venitTotalAnual = 0;
 
 	const venitTotalAnualCuAlteSurseLei =
-		parseFloat(inputElements.venitTotalAnualCuAlteSurseLei.value) || 0;
+		parseFormattedNumber(inputElements.venitTotalAnualCuAlteSurseLei.value) || 0;
 	const venitTotalAnualCuAlteSurseEuro =
-		parseFloat(inputElements.venitTotalAnualCuAlteSurseEuro.value) || 0;
+		parseFormattedNumber(inputElements.venitTotalAnualCuAlteSurseEuro.value) || 0;
 
 	if (venitTotalAnualCuAlteSurseLei > 0) {
 		venitTotalAnual = venitTotalAnualCuAlteSurseLei;
@@ -68,15 +68,15 @@ export function calculateImpozit() {
 	const impozitAnualEuro = finalImpozitAnual / euro;
 	const impozitLunarEuro = finalImpozitLunar / euro;
 
-	inputElements.impozitTotalPlataAnualaEuro.value = impozitAnualEuro.toFixed(2);
-	inputElements.impozitTotalPlataLunaraEuro.value = impozitLunarEuro.toFixed(2);
+	inputElements.impozitTotalPlataAnualaEuro.value = priceFormatEUR(impozitAnualEuro);
+	inputElements.impozitTotalPlataLunaraEuro.value = priceFormatEUR(impozitLunarEuro);
 }
 
 export function calculateCASS() {
-	const chirieLunaraLei = parseFloat(inputElements.chirieLunaraLei.value) || 0;
+	const chirieLunaraLei = parseFormattedNumber(inputElements.chirieLunaraLei.value) || 0;
 
 	const venitTotalAnualLei =
-		parseFloat(inputElements.venitTotalAnualCuAlteSurseLei.value) || 0;
+		parseFormattedNumber(inputElements.venitTotalAnualCuAlteSurseLei.value) || 0;
 
 	let cassRate = 0;
 	let cassAnual = 0;
@@ -99,16 +99,50 @@ export function calculateCASS() {
 	const cassAnualEuro = cassAnual / euro;
 	const cassLunarEuro = cassLunar / euro;
 
-	inputElements.impozitCASSLunarEuro.value = cassLunarEuro.toFixed(2);
-	inputElements.impozitCASSAnualEuro.value = cassAnualEuro.toFixed(2);
+	inputElements.impozitCASSLunarEuro.value = priceFormatEUR(cassLunarEuro);
+	inputElements.impozitCASSAnualEuro.value = priceFormatEUR(cassAnualEuro);
 }
 
 function updateImpozitInputs(impozitAnual, impozitLunar) {
-	inputElements.impozitTotalPlataAnualaLei.value = impozitAnual.toFixed(2);
-	inputElements.impozitTotalPlataLunaraLei.value = impozitLunar.toFixed(2);
+	inputElements.impozitTotalPlataAnualaLei.value = priceFormatRON(impozitAnual);
+	inputElements.impozitTotalPlataLunaraLei.value = priceFormatRON(impozitLunar);
 }
 
 function updateCASSInputs(cassLunar, cassAnual) {
-	inputElements.impozitCASSLunarLei.value = cassLunar.toFixed(2);
-	inputElements.impozitCASSAnualLei.value = cassAnual.toFixed(2);
+	inputElements.impozitCASSLunarLei.value = priceFormatRON(cassLunar);
+	inputElements.impozitCASSAnualLei.value = priceFormatRON(cassAnual);
+}
+
+function priceFormatRON(suma) {
+    if (isNaN(suma)) {
+        return 'Invalid number';
+    }
+    
+    const formattedNumber = Intl.NumberFormat('ro-RO').format(suma);
+    
+    return `${formattedNumber} RON`;
+}
+function priceFormatEUR(suma) {
+    if (isNaN(suma)) {
+        return 'Invalid number';
+    }
+    
+    const formattedNumber = Intl.NumberFormat('ro-RO').format(suma);
+    
+    return `${formattedNumber} EUR`;
+}
+function parseFormattedNumber(formattedNum) {
+    if (typeof formattedNum !== 'string') {
+        return 'Invalid input';
+    }
+
+    const cleanedNum = formattedNum.replace(/\./g, '').replace(',', '.');
+
+    const parsedNum = parseFloat(cleanedNum);
+
+    if (isNaN(parsedNum)) {
+        return 'Invalid number';
+    }
+
+    return parsedNum;
 }

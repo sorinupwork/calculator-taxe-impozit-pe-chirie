@@ -27,6 +27,7 @@ export const inputElements = {
 	impozitTotalPlataLunara: document.getElementById('impozitPlataLunara'),
 	impozitCASSLunar: document.getElementById('impozitCASSLunar'),
 	impozitCASSAnual: document.getElementById('impozitCASSAnual'),
+	persoana: document.getElementById('persoana'),
 };
 
 // event listeners
@@ -43,6 +44,12 @@ inputElements.chirieLunaraEuro.addEventListener('input', () => {
 });
 
 inputElements.venitLunarAlteSurse.addEventListener('input', () => {
+	calculateVenitTotalAnual();
+	calculateImpozit();
+	calculateCASS();
+});
+
+inputElements.persoana.addEventListener('change', () => {
 	calculateVenitTotalAnual();
 	calculateImpozit();
 	calculateCASS();

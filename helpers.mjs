@@ -27,8 +27,17 @@ export function calculateImpozit() {
 	const venitNet = venitBrut - forfetara;
 	const impozitAnual = venitNet * 0.1;
 	const impozitLunar = impozitAnual / 12;
+	const selectedType = inputElements.persoana.value;
 
-	updateImpozitInputs(impozitAnual, impozitLunar);
+	if (selectedType === 'PJ') {
+		const reductionFactor = 0.1;
+		const reducedImpozitAnual = impozitAnual * (1 - reductionFactor);
+		const reducedImpozitLunar = impozitLunar * (1 - reductionFactor);
+
+		updateImpozitInputs(reducedImpozitAnual, reducedImpozitLunar);
+	} else {
+		updateImpozitInputs(impozitAnual, impozitLunar);
+	}
 }
 
 export function calculateCASS() {

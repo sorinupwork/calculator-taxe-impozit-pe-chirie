@@ -16,17 +16,30 @@ document.getElementById(
 
 // input elements
 export const inputElements = {
-	chirieLunaraEuro: document.getElementById('chirieLunaraEuro'),
 	chirieLunaraLei: document.getElementById('chirieLunaraLei'),
-	venitLunarAlteSurse: document.getElementById('venitLunarAlteSurse'),
-	venitTotalAnual: document.getElementById('venitTotalAnual'),
-	venitTotalAnualCuAlteSurse: document.getElementById(
-		'venitTotalAnualCuAlteSurse'
+	chirieLunaraEuro: document.getElementById('chirieLunaraEuro'),
+	venitLunarAlteSurseLei: document.getElementById('venitLunarAlteSurseLei'),
+	venitLunarAlteSurseEuro: document.getElementById('venitLunarAlteSurseEuro'),
+	venitTotalAnualLei: document.getElementById('venitTotalAnualLei'),
+	venitTotalAnualEuro: document.getElementById('venitTotalAnualEuro'),
+	venitTotalAnualCuAlteSurseLei: document.getElementById(
+		'venitTotalAnualCuAlteSurseLei'
 	),
-	impozitTotalPlataAnuala: document.getElementById('impozitPlataAnuala'),
-	impozitTotalPlataLunara: document.getElementById('impozitPlataLunara'),
-	impozitCASSLunar: document.getElementById('impozitCASSLunar'),
-	impozitCASSAnual: document.getElementById('impozitCASSAnual'),
+	venitTotalAnualCuAlteSurseEuro: document.getElementById(
+		'venitTotalAnualCuAlteSurseEuro'
+	),
+	impozitTotalPlataAnualaLei: document.getElementById('impozitPlataAnualaLei'),
+	impozitTotalPlataAnualaEuro: document.getElementById(
+		'impozitPlataAnualaEuro'
+	),
+	impozitTotalPlataLunaraLei: document.getElementById('impozitPlataLunaraLei'),
+	impozitTotalPlataLunaraEuro: document.getElementById(
+		'impozitPlataLunaraEuro'
+	),
+	impozitCASSLunarLei: document.getElementById('impozitCASSLunarLei'),
+	impozitCASSLunarEuro: document.getElementById('impozitCASSLunarEuro'),
+	impozitCASSAnualLei: document.getElementById('impozitCASSAnualLei'),
+	impozitCASSAnualEuro: document.getElementById('impozitCASSAnualEuro'),
 	persoana: document.getElementById('persoana'),
 };
 
@@ -43,7 +56,12 @@ inputElements.chirieLunaraEuro.addEventListener('input', () => {
 	calculateCASS();
 });
 
-inputElements.venitLunarAlteSurse.addEventListener('input', () => {
+inputElements.venitLunarAlteSurseLei.addEventListener('input', () => {
+	calculateVenitTotalAnual();
+	calculateImpozit();
+	calculateCASS();
+});
+inputElements.venitLunarAlteSurseEuro.addEventListener('input', () => {
 	calculateVenitTotalAnual();
 	calculateImpozit();
 	calculateCASS();
